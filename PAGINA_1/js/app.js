@@ -1,27 +1,47 @@
-import productos from "./productos";
+import productos from "./productos.js";
 
-console.log(productos);
+const carrito = [];
+
+const contadorCarrito = document.getElementById("contador-carrito");
 
 const contenedor = document.getElementById("productos");
 
+function agregarAlCarrito(producto) {
+
+    carrito.push(producto);
+
+    console.log(carrito);
+
+    console.log(`Producto agregado: ${producto.name}`);
+
+    contadorCarrito.textContent = carrito.length;
+}
+
 for (let i = 0; i < productos.length; i++) {
 
-    const product = productos[i];
+    const producto = productos[i];
 
     const tarjeta = document.createElement("div");
 
     tarjeta.innerHTML = `
     
-        <img src="${product.img}">
+        <img src="${producto.img}">
         
-        <h2>${product.description}</h2>
+        <h2>${producto.description}</h2>
 
-        <p class="font-bold" >S/${product.precio}</p>
+        <p class="font-bold" >S/${producto.precio}</p>
 
-        <p>${product.stock>0?"Disponible":"Agotado"}</p>
+        <p>${producto.stock>0?"Disponible":"Agotado"}</p>
 
         <button>Agregar al carrito</button>
 
     `;
+
+    const boton = tarjeta.querySelector("button");
+
+    boton.addEventListener("click", function () {
+        agregarAlCarrito(producto)
+    });
+
     contenedor.appendChild(tarjeta);
 }
